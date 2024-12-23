@@ -10,30 +10,56 @@ interface CellProps {
 export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
   const [isLongPress, setIsLongPress] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartTimeRef = useRef<number>(0);
+
+  // Function to trigger vibration
+  const vibrate = useCallback(() => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // 50ms vibration
+    }
+  }, []);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
+    touchStartTimeRef.current = Date.now();
     timeoutRef.current = setTimeout(() => {
       setIsLongPress(true);
       onFlag();
-    }, 300);
-  }, [onFlag]);
+      vibrate();
+    }, 500); // Increased to 500ms for more reliable long press detection
+  }, [onFlag, vibrate]);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
+    const touchDuration = Date.now() - touchStartTimeRef.current;
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
-    if (!isLongPress) {
+
+    // Only trigger reveal if it was a short tap (less than 500ms)
+    if (touchDuration < 500 && !isLongPress) {
       onReveal();
     }
+
     setIsLongPress(false);
   }, [isLongPress, onReveal]);
+
+  const handleTouchCancel = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsLongPress(false);
+  }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
       setIsLongPress(false);
     }
   }, []);
@@ -47,16 +73,24 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
     <button
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
       onTouchMove={handleTouchMove}
       onContextMenu={handleContextMenu}
-      onClick={onReveal}
+      onClick={(e) => {
+        // Only handle click for non-touch devices
+        if (!('ontouchstart' in window)) {
+          onReveal();
+        }
+      }}
       className={`
         w-8 h-8 flex items-center justify-center select-none touch-none
         ${cell.isRevealed
           ? 'bg-gray-200'
-          : 'bg-gray-400 hover:bg-gray-500'}
+          : 'bg-gray-400 active:bg-gray-500'}
         ${cell.isMine && cell.isRevealed ? 'bg-red-500' : ''}
-        font-bold text-sm
+        ${isLongPress ? 'bg-gray-600' : ''}
+        font-bold text-sm rounded-sm
+        transition-colors duration-150
       `}
     >
       {cell.isRevealed
