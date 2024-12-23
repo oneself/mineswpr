@@ -1,0 +1,1178 @@
+____________________________________________________________________
+			P o w e r T O P
+
+____________________________________________________________________
+ *  *  *   System Information   *  *  *
+
+PowerTOP Version;2.15 ran at Mon Dec 23 12:44:27 2024
+
+Kernel Version;Linux version 6.12.4-arch1-1
+System Name;LENOVO21BN0031IVThinkPad X13 Gen 3
+CPU Information;16 12th Gen Intel(R) Core(TM) i7-1260P
+OS Information;Arch Linux
+
+Target: 1 units/s;System:  2764.9 wakeup/s;CPU:  53.0% usage;GPU: 0 ops/s;GFX: 0 wakeups/s;VFS: 0 ops/s;
+
+____________________________________________________________________
+ *  *  *   Top 10 Power Consumers   *  *  *
+
+Usage;Events/s;Category;Description
+  1.6%;1012.1;Timer;tick_nohz_handler
+  2.3%;417.6;Process;[PID 362761] /opt/zoom/aomhost -pid 361885 -epkey rpc -exitsem rpc361885_rpcexit-757447088-0x79d454000be0 
+  2.3%;409.2;Process;[PID 362760] /opt/zoom/aomhost -pid 361885 -epkey rpc -exitsem rpc361885_rpcexit-757447088-0x79d454000be0 
+  0.3%;346.4;Process;[PID 1307] /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=4164
+  4.1%; 57.1;Timer;hrtimer_wakeup
+  5.4%; 22.5;Process;[PID 3114] /usr/lib/electron33/electron --type=renderer --crashpad-handler-pid=2860 --enable-crash-reporter=b6dad04e-4d15-4fd6-
+  0.0%; 40.3;Timer;inactive_task_timer
+  0.2%; 30.0;kWork;handle_update
+  4.2%; 11.2;Process;[PID 697424] /home/eyal/.dropbox-dist/dropbox-lnx.x86_64-214.4.5217/dropbox 
+  0.1%; 24.3;Process;[PID 18] [rcu_preempt]
+
+____________________________________________________________________
+ *  *  *   Processor Idle State Report   *  *  *
+
+Package;0
+C2 (pc2); 29.3%
+C3 (pc3);  0.6%
+C6 (pc6);  8.5%
+C7 (pc7);  0.0%
+C8 (pc8);  0.0%
+C9 (pc9);  0.0%
+C10 (pc10);  0.0%
+;
+;
+;
+
+;Core 0
+C3 (cc3);  0.0%
+C6 (cc6);  0.2%
+C7 (cc7); 84.3%
+;Core 4
+C3 (cc3);  0.0%
+C6 (cc6);  0.3%
+C7 (cc7); 91.7%
+;Core 8
+C3 (cc3);  0.0%
+C6 (cc6);  0.4%
+C7 (cc7); 88.8%
+;Core 12
+C3 (cc3);  0.0%
+C6 (cc6);  0.1%
+C7 (cc7); 89.6%
+;Core 16
+C3 (cc3);  0.0%
+C6 (cc6); 92.8%
+C7 (cc7);  0.0%
+;Core 17
+C3 (cc3);  0.0%
+C6 (cc6); 94.7%
+C7 (cc7);  0.0%
+;Core 18
+C3 (cc3);  0.0%
+C6 (cc6); 85.3%
+C7 (cc7);  0.0%
+;Core 19
+C3 (cc3);  0.0%
+C6 (cc6); 90.9%
+C7 (cc7);  0.0%
+;Core 20
+C3 (cc3);  0.0%
+C6 (cc6); 90.1%
+C7 (cc7);  0.0%
+;Core 21
+C3 (cc3);  0.0%
+C6 (cc6); 97.8%
+C7 (cc7);  0.0%
+;Core 22
+C3 (cc3);  0.0%
+C6 (cc6); 83.3%
+C7 (cc7);  0.0%
+;Core 23
+C3 (cc3);  0.0%
+C6 (cc6); 95.8%
+C7 (cc7);  0.0%
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+CPU;0
+CPU;1;C0 active
+  1.3%;  0.5%
+POLL;  0.0%
+   0.1 ms;  0.0%;   0.0 ms
+C1E;  4.4%;   0.1 ms
+  0.6%;   0.4 ms;
+;
+C6;  0.3%;   0.4 ms
+  0.1%;   0.6 ms;
+C8;  0.6%
+   0.8 ms;  0.4%;   1.1 ms
+;
+
+C10; 91.4%
+   5.4 ms; 97.6%;  15.5 ms
+CPU;2
+CPU;3;C0 active
+  1.7%;  0.1%
+POLL;  0.0%
+   0.0 ms;  0.0%;   0.0 ms
+C1E;  1.1%;   0.3 ms
+  0.1%;   0.3 ms;
+;
+C6;  0.3%;   0.8 ms
+  0.0%;   0.0 ms;
+C8;  0.4%
+   0.8 ms;  0.1%;   0.4 ms
+;
+
+C10; 93.6%
+   5.1 ms; 99.7%;  53.3 ms
+CPU;4
+CPU;5;C0 active
+  3.0%;  0.4%
+POLL;  0.0%
+   0.0 ms;  0.0%;   0.0 ms
+C1E;  0.3%;   0.2 ms
+  0.8%;   0.7 ms;
+;
+C6;  0.5%;   0.5 ms
+  0.0%;   0.0 ms;
+C8;  0.5%
+   0.7 ms;  0.0%;   0.0 ms
+;
+
+C10; 91.3%
+   7.1 ms; 98.3%;  18.5 ms
+CPU;6
+CPU;7;C0 active
+  2.3%;  0.2%
+POLL;  0.0%
+   0.0 ms;  0.0%;   0.0 ms
+C1E;  1.0%;   0.2 ms
+  0.3%;   0.9 ms;
+;
+C6;  0.1%;   0.4 ms
+  0.0%;   0.0 ms;
+C8;  0.2%
+   0.4 ms;  0.0%;   0.0 ms
+;
+
+C10; 92.4%
+   6.2 ms; 99.5%;  50.5 ms
+CPU;8
+C0 active;  1.6%;
+POLL;  0.0%;   0.0 ms
+C1E;  1.1%;   0.3 ms
+;
+;
+C6;  0.7%;   0.7 ms
+;
+C8;  1.1%;   0.8 ms
+;
+;
+C10; 92.1%;   4.8 ms
+CPU;9
+C0 active;  1.2%;
+POLL;  0.0%;   0.0 ms
+C1E;  1.6%;   0.7 ms
+;
+;
+C6;  0.1%;   0.3 ms
+;
+C8;  0.0%;   0.1 ms
+;
+;
+C10; 95.1%;   8.4 ms
+CPU;10
+C0 active;  2.3%;
+POLL;  0.0%;   0.1 ms
+C1E;  3.5%;   0.3 ms
+;
+;
+C6;  2.4%;   0.7 ms
+;
+C8;  2.2%;   0.8 ms
+;
+;
+C10; 84.1%;   2.5 ms
+CPU;11
+C0 active;  1.8%;
+POLL;  0.0%;   0.0 ms
+C1E;  2.2%;   0.3 ms
+;
+;
+C6;  1.5%;   0.8 ms
+;
+C8;  1.1%;   0.7 ms
+;
+;
+C10; 90.0%;   4.5 ms
+CPU;12
+C0 active;  1.7%;
+POLL;  0.0%;   0.0 ms
+C1E;  2.6%;   0.3 ms
+;
+;
+C6;  1.1%;   0.7 ms
+;
+C8;  1.3%;   0.7 ms
+;
+;
+C10; 89.8%;   3.9 ms
+CPU;13
+C0 active;  0.5%;
+POLL;  0.0%;   0.0 ms
+C1E;  0.4%;   0.5 ms
+;
+;
+C6;  0.0%;   0.0 ms
+;
+C8;  0.1%;   0.3 ms
+;
+;
+C10; 98.2%;  10.7 ms
+CPU;14
+C0 active;  2.9%;
+POLL;  0.0%;   0.1 ms
+C1E;  4.3%;   0.3 ms
+;
+;
+C6;  2.2%;   0.7 ms
+;
+C8;  3.3%;   0.8 ms
+;
+;
+C10; 80.7%;   2.1 ms
+CPU;15
+C0 active;  1.1%;
+POLL;  0.0%;   0.0 ms
+C1E;  0.7%;   0.3 ms
+;
+;
+C6;  0.4%;   0.6 ms
+;
+C8;  0.3%;   1.0 ms
+;
+;
+C10; 95.7%;   8.4 ms
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+
+____________________________________________________________________
+ *  *  *   Processor Frequency Report   *  *  *
+
+Package;0
+Idle;
+;
+;
+;
+
+;Core 0
+Idle;
+;Core 4
+Idle;
+;Core 8
+Idle;
+;Core 12
+Idle;
+;Core 16
+Idle;
+;Core 17
+Idle;
+;Core 18
+Idle;
+;Core 19
+Idle;
+;Core 20
+Idle;
+;Core 21
+Idle;
+;Core 22
+Idle;
+;Core 23
+Idle;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+CPU 0
+CPU 1;Average
+   916 MHz;   981 MHz
+Idle;
+CPU 2
+CPU 3;Average
+   881 MHz;  1066 MHz
+Idle;
+CPU 4
+CPU 5;Average
+   983 MHz;   900 MHz
+Idle;
+CPU 6
+CPU 7;Average
+   863 MHz;   929 MHz
+Idle;
+CPU 8
+Average;   779 MHz
+Idle;
+CPU 9
+Average;   915 MHz
+Idle;
+CPU 10
+Average;   707 MHz
+Idle;
+CPU 11
+Average;   819 MHz
+Idle;
+CPU 12
+Average;   799 MHz
+Idle;
+CPU 13
+Average;   900 MHz
+Idle;
+CPU 14
+Average;   723 MHz
+Idle;
+CPU 15
+Average;   865 MHz
+Idle;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+____________________________________________________________________
+ *  *  *   Overview of Software Power Consumers   *  *  *
+
+Usage;Wakeups/s;GPU ops/s;Disk IO/s;GFX Wakeups/s;Category;Description
+ 16.4 ms/s;1012.1;;;;Timer;tick_nohz_handler
+ 22.6 ms/s;417.6;;;;Process;[PID 362761] /opt/zoom/aomhost -pid 361885 -epkey rpc -exitsem rpc361885_rpcexit-757447088-0x79d454000be0 
+ 22.5 ms/s;409.2;;;;Process;[PID 362760] /opt/zoom/aomhost -pid 361885 -epkey rpc -exitsem rpc361885_rpcexit-757447088-0x79d454000be0 
+  2.8 ms/s;346.4;;;;Process;[PID 1307] /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=4164
+ 40.7 ms/s; 57.1;;;;Timer;hrtimer_wakeup
+ 53.5 ms/s; 22.5;;;;Process;[PID 3114] /usr/lib/electron33/electron --type=renderer --crashpad-handler-pid=2860 --enable-crash-reporter=b6dad04e-4d15-4fd6-
+275.3 us/s; 40.3;;;;Timer;inactive_task_timer
+  1.6 ms/s; 30.0;;;;kWork;handle_update
+ 41.5 ms/s; 11.2;;;;Process;[PID 697424] /home/eyal/.dropbox-dist/dropbox-lnx.x86_64-214.4.5217/dropbox 
+  0.9 ms/s; 24.3;;;;Process;[PID 18] [rcu_preempt]
+ 13.1 ms/s; 15.0;;;;Process;[PID 2962] /opt/RememberTheMilk/rememberthemilk --type=renderer --field-trial-handle=10639213932543589736,2961573131450501316,1
+327.4 us/s; 19.7;;;;Process;[PID 696] [irq/175-iwlwifi]
+  1.5 ms/s; 14.0;;;;Interrupt;[207] i915
+ 14.0 ms/s;  8.4;;;;Process;[PID 3246] /usr/lib/slack/slack --type=renderer --crashpad-handler-pid=3020 --enable-crash-reporter=b309b509-92c2-4d68-9658-be2
+  5.6 ms/s; 10.3;;;;Process;[PID 3094] /usr/lib/electron33/electron --type=gpu-process --crashpad-handler-pid=2860 --enable-crash-reporter=b6dad04e-4d15-4f
+ 16.9 ms/s;  5.6;;;;Process;[PID 1914628] powertop --csv --time=1 
+252.5 us/s; 12.2;;;;kWork;psi_avgs_work
+ 16.9 ms/s;  4.7;;;;Process;[PID 3095] /opt/whatsdesk/whatsdesk --type=renderer --enable-crashpad --enable-crash-reporter=629b3223-479c-4354-8f67-3e076e32e
+  2.6 ms/s; 10.3;;;;Process;[PID 1896604] /opt/google/chrome/chrome --type=renderer --string-annotations --crashpad-handler-pid=1163454 --enable-crash-repo
+179.3 us/s; 11.2;;;;kWork;delayed_vfree_work
+  0.8 ms/s; 10.3;;;;Process;[PID 327243] /usr/bin/containerd 
+523.8 us/s; 10.3;;;;Process;[PID 327237] /usr/bin/containerd 
+  1.9 ms/s;  8.4;;;;Process;[PID 3225] /usr/lib/electron33/electron --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox
+  0.7 ms/s;  8.4;;;;Process;[PID 888076] /opt/spotify/spotify 
+614.5 us/s;  8.4;;;;Process;[PID 888097] /opt/spotify/spotify 
+  9.6 ms/s;  4.7;;;;Process;[PID 1914678] bash
+  1.4 ms/s;  7.5;;;;Process;[PID 2174] /usr/bin/python /usr/bin/blueman-tray 
+ 15.5 ms/s;  1.9;;;;Process;[PID 1323] /usr/lib/Xorg -nolisten tcp vt07 -auth /var/run/slim.auth 
+  3.2 ms/s;  5.6;;;;Process;[PID 2844] /opt/whatsdesk/whatsdesk --type=gpu-process --enable-crashpad --enable-crash-reporter=629b3223-479c-4354-8f67-3e076e
+  2.7 ms/s;  5.6;;;;Process;[PID 130] [irq/9-acpi]
+  9.0 ms/s;  2.8;;;;Process;[PID 3049] /usr/lib/electron33/electron --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-s
+  1.0 ms/s;  5.6;;;;Process;[PID 1867907] /tmp/.mount_cursorlwORsW/cursor --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-s
+  5.4 ms/s;  3.7;;;;Process;[PID 1163439] /opt/google/chrome/chrome --force-device-scale-factor=1.2 --no-default-browser-check --ignore-gpu-blacklist --ena
+  1.2 ms/s;  4.7;;;;Process;[PID 13910] /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=416
+  3.5 ms/s;  3.7;;;;Process;[PID 1840430] /tmp/.mount_cursorlwORsW/cursor --type=renderer --crashpad-handler-pid=1840361 --enable-crash-reporter=4e197b4d-c
+  5.7 ms/s;  2.8;;;;Process;[PID 1163497] /opt/google/chrome/chrome --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-s
+ 10.4 ms/s;  0.9;;;;Interrupt;[7] sched(softirq)
+474.8 us/s;  4.7;;;;Process;[PID 888058] /opt/spotify/spotify 
+ 45.0 us/s;  4.7;;;;kWork;srcu_invoke_callbacks
+  2.2 ms/s;  3.7;;;;Interrupt;[3] net_rx(softirq)
+  2.1 ms/s;  3.7;;;;Process;[PID 3075] /usr/lib/slack/slack --type=gpu-process --crashpad-handler-pid=3020 --enable-crash-reporter=b309b509-92c2-4d68-9658-
+  1.7 ms/s;  3.7;;;;Process;[PID 1914685] bash
+  1.5 ms/s;  3.7;;;;Process;[PID 1914690] bash
+  8.2 ms/s;  0.9;;;;Process;[PID 2590] /usr/lib/electron33/electron /usr/lib/notion-app/app.asar 
+  3.3 ms/s;  2.8;;;;Process;[PID 1840718] /tmp/.mount_cursorlwORsW/cursor --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-s
+  3.2 ms/s;  2.8;;;;Process;[PID 1840737] /tmp/.mount_cursorlwORsW/cursor --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-s
+  5.0 ms/s;  1.9;;;;Process;[PID 1914647] bash
+163.7 us/s;  3.7;;;;kWork;__i915_vm_release
+ 98.0 us/s;  3.7;;;;kWork;intel_atomic_cleanup_work
+ 62.6 us/s;  3.7;;;;Process;[PID 706] [irq/185-iwlwifi]
+ 20.6 us/s;  3.7;;;;kWork;toggle_allocation_gate
+  0.0 us/s;  3.7;;;;kWork;intel_atomic_commit_work
+  0.0 us/s;  3.7;;;;kWork;fsnotify_mark_destroy_workfn
+  0.0 us/s;  3.7;;;;kWork;fsnotify_connector_destroy_work
+  2.1 ms/s;  2.8;;;;Process;[PID 1914694] bash
+  1.9 ms/s;  2.8;;;;Process;[PID 2884] /opt/RememberTheMilk/rememberthemilk --type=gpu-process --field-trial-handle=10639213932543589736,296157313145050131
+  1.8 ms/s;  2.8;;;;Process;[PID 1914683] bash
+  1.7 ms/s;  2.8;;;;Process;[PID 1903259] /tmp/.mount_cursorlwORsW/cursor --type=renderer --crashpad-handler-pid=1840361 --enable-crash-reporter=4e197b4d-c
+  6.3 ms/s;  0.9;;;;Process;[PID 1914699] 16
+  1.3 ms/s;  2.8;;;;Process;[PID 1914679] bash
+  3.5 ms/s;  1.9;;;;Process;[PID 1912228] picom -b --config /home/eyal/etc/xmonad/picom.conf 
+  3.2 ms/s;  1.9;;;;Process;[PID 3176] /usr/lib/electron33/electron --type=renderer --crashpad-handler-pid=2860 --enable-crash-reporter=b6dad04e-4d15-4fd6-
+  3.1 ms/s;  1.9;;;;Process;[PID 1408] /usr/bin/python /usr/bin/auto-cpufreq --daemon 
+242.2 us/s;  2.8;;;;Process;[PID 1844455] alacritty -e /home/eyal/etc/tmux/init 
+196.8 us/s;  2.8;;;;kWork;kcryptd_crypt
+ 99.7 us/s;  2.8;;;;Process;[PID 703] [irq/182-iwlwifi]
+ 59.5 us/s;  2.8;;;;Process;[PID 698] [irq/177-iwlwifi]
+ 52.9 us/s;  2.8;;;;kWork;intel_display_power_put_async_w
+  4.4 ms/s;  0.9;;;;Process;[PID 1377] /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=4164
+  4.3 ms/s;  0.9;;;;Process;[PID 1884542] /home/eyal/.asdf/installs/nodejs/18.16.0/bin/node /home/eyal/Dropbox/homeworks/mineswpr/node_modules/react-script
+  1.9 ms/s;  1.9;;;;Process;[PID 1914688] bash
+  3.8 ms/s;  0.9;;;;Process;[PID 3105] /usr/lib/electron33/electron --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox
+  3.5 ms/s;  0.9;;;;Process;[PID 1914678] sh
+  1.0 ms/s;  1.9;;;;Process;[PID 1844469] tmux new-session -s tmx 
+  3.3 ms/s;  0.9;;;;Process;[PID 1914677] [auto-cpufreq]
+  3.2 ms/s;  0.9;;;;Process;[PID 2749] /usr/lib/electron33/electron /usr/lib/notion-app/app.asar 
+  5.5 ms/s;;;;;Process;[PID 1] /usr/lib/systemd/systemd --system --deserialize=76 root:/dev/vg/root 
+  3.1 ms/s;  0.9;;;;Process;[PID 1774384] /usr/lib/systemd/systemd-journald 
+659.8 us/s;  1.9;;;;Process;[PID 1907] autocutsel -s PRIMARY -f 
+604.6 us/s;  1.9;;;;Process;[PID 888099] /opt/spotify/spotify --type=renderer --string-annotations --enable-crash-reporter=, --change-stack-guard-on-fork=e
+526.0 us/s;  1.9;;;;Process;[PID 1912230] polybar -r -c /home/eyal/etc/xmonad/polybar.ini small 
+374.4 us/s;  1.9;;;;Process;[PID 71443] /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=416
+346.6 us/s;  1.9;;;;Process;[PID 2880] /opt/RememberTheMilk/rememberthemilk --type=gpu-process --field-trial-handle=10639213932543589736,296157313145050131
+ 71.2 us/s;  1.9;;;;kWork;ext4_end_io_rsv_work
+ 46.5 us/s;  1.9;;;;Process;[PID 2875] /opt/RememberTheMilk/rememberthemilk --type=renderer --field-trial-handle=10639213932543589736,2961573131450501316,1
+ 46.3 us/s;  1.9;;;;kWork;wb_workfn
+ 22.7 us/s;  1.9;;;;kWork;iwl_pcie_rx_allocator_work
+ 18.5 us/s;  1.9;;;;kWork;wq_barrier_func
+  8.6 us/s;  1.9;;;;kWork;drain_local_stock
+  0.0 us/s;  1.9;;;;kWork;iwl_mvm_tcm_work
+  2.3 ms/s;  0.9;;;;Process;[PID 1914680] bash
+  2.2 ms/s;  0.9;;;;Process;[PID 1914678] auto-cpufreq
+  2.2 ms/s;  0.9;;;;Process;[PID 1914687] bash
+  2.1 ms/s;  0.9;;;;Process;[PID 1914698] bash
+  2.1 ms/s;  0.9;;;;Process;[PID 1914692] bash
+  1.9 ms/s;  0.9;;;;Process;[PID 1914686] bash
+  1.9 ms/s;  0.9;;;;Process;[PID 1914681] bash
+  1.9 ms/s;  0.9;;;;Process;[PID 1914667] bash
+  1.9 ms/s;  0.9;;;;Process;[PID 1914697] bash
+  1.9 ms/s;  0.9;;;;Process;[PID 1914693] bash
+
+
+The battery reports a discharge rate of:  9.97  W;
+
+The energy consumed was :  10.5  J;
+____________________________________________________________________
+ *  *  *   Device Power Report   *  *  *
+
+Usage;Device Name
+ 53.0%;CPU misc
+ 53.0%;CPU core
+100.0%;USB device: YubiKey OTP+FIDO+CCID (Yubico)
+100.0%;USB device: xHCI Host Controller
+ 66.4%;Display backlight
+  0.0%;USB device: xHCI Host Controller
+  0.0%;USB device: xHCI Host Controller
+  0.0%;USB device: Integrated Camera (Chicony Electronics Co.,Ltd.)
+  0.0%;USB device: usb-device-8087-0033
+  0.0%;USB device: xHCI Host Controller
+  0.0%;Audio codec hwC0D2: Intel
+  0.0%;Audio codec hwC0D0: Realtek
+  0.0%;USB device: Goodix USB2.0 MISC (Goodix Technology Co., Ltd.)
+100.0%;PCI Device: Intel Corporation Alder Lake-P PCH CNVi WiFi
+100.0%;Radio device: btusb
+100.0%;Radio device: thinkpad_acpi
+100.0%;Radio device: iwlwifi
+100.0%;PCI Device: Intel Corporation Alder Lake PCH USB 3.2 xHCI Host Controller
+100.0%;PCI Device: Intel Corporation Alder Lake-P GT2 [Iris Xe Graphics]
+100.0%;PCI Device: SK hynix Gold P31/BC711/PC711 NVMe Solid State Drive
+100.0%;PCI Device: Intel Corporation 12th Gen Core Processor PCI Express x4 Controller #0
+100.0%;PCI Device: Intel Corporation Device 4621
+100.0%;PCI Device: Intel Corporation Alder Lake-P PCH SPI Controller
+100.0%;PCI Device: Intel Corporation Alder Lake Innovation Platform Framework Processor Participant
+ 48.7 pkts/s;Network interface: wlan0 (iwlwifi)
+  0.0%;PCI Device: Intel Corporation Alder Lake PCH Shared SRAM
+  0.0 pkts/s;nic:docker0
+  0.0 pkts/s;nic:tailscale0
+  0.0 pkts/s;nic:br-f7c829ae1c82
+  0.0%;PCI Device: Intel Corporation 12th Gen Core Processor Gaussian & Neural Accelerator
+  0.0%;PCI Device: Intel Corporation Alder Lake-P Thunderbolt 4 USB Controller
+  0.0%;PCI Device: Intel Corporation Alder Lake PCH eSPI Controller
+  0.0%;PCI Device: Intel Corporation Alder Lake-P Thunderbolt 4 PCI Express Root Port #2
+  0.0%;PCI Device: Intel Corporation Alder Lake PCH HECI Controller
+  0.0%;PCI Device: Intel Corporation Alder Lake-P Thunderbolt 4 PCI Express Root Port #0
+  0.0%;runtime-PNP0C0A:00
+  0.0%;PCI Device: Intel Corporation Alder Lake PCH-P High Definition Audio Controller
+  0.0%;PCI Device: Intel Corporation Alder Lake-P Thunderbolt 4 NHI #1
+  0.0%;PCI Device: Intel Corporation Alder Lake PCH-P SMBus Host Controller
+  0.0%;PCI Device: Intel Corporation Alder Lake-P Thunderbolt 4 NHI #0
+  0.0%;runtime-spi0.0
+  0.0%;runtime-PNP0C14:00
+  0.0%;runtime-alarmtimer.0.auto
+  0.0%;runtime-reg-dummy
+  0.0%;runtime-iTCO_wdt
+  0.0%;runtime-PNP0C0D:00
+  0.0%;runtime-PNP0C09:00
+  0.0%;runtime-thinkpad_hwmon
+  0.0%;runtime-snd-soc-dummy
+  0.0%;runtime-LEN0130:00
+  0.0%;runtime-skl_hda_dsp_generic
+  0.0%;runtime-ACPI0003:00
+  0.0%;runtime-acpi-cpufreq
+  0.0%;runtime-INT33A1:00
+  0.0%;runtime-rtc_cmos
+  0.0%;runtime-PNP0C14:07
+  0.0%;runtime-LEN0111:00
+  0.0%;runtime-PNP0C14:05
+  0.0%;runtime-PNP0C14:01
+  0.0%;Thinkpad light
+  0.0%;runtime-LEN0100:00
+  0.0%;runtime-intel_rapl_msr.0
+  0.0%;runtime-INTC1046:03
+  0.0%;runtime-USBC000:00
+  0.0%;runtime-PNP0C14:03
+  0.0%;runtime-PNP0C0C:00
+  0.0%;runtime-ACPI000C:00
+  0.0%;runtime-INTC1046:01
+  0.0%;runtime-rtc-efi.0
+  0.0%;runtime-microcode
+  0.0%;runtime-PNP0C14:06
+  0.0%;runtime-dmic-codec
+  0.0%;runtime-PNP0C14:08
+  0.0%;runtime-STM0151:00
+  0.0%;runtime-thinkpad_acpi
+  0.0%;runtime-coretemp.0
+  0.0%;runtime-regulatory.0
+  0.0%;runtime-PNP0800:00
+  0.0%;runtime-INTC1041:00
+  0.0%;runtime-LEN0112:00
+  0.0%;runtime-ACPI000E:00
+  0.0%;runtime-PNP0C0B:00
+  0.0%;runtime-INTC1055:00
+  0.0%;runtime-PNP0103:00
+  0.0%;runtime-INTC1070:00
+  0.0%;runtime-efivars.0
+  0.0%;runtime-serial8250
+  0.0%;runtime-PNP0C14:04
+  0.0%;runtime-i8042
+  0.0%;runtime-INTC1046:02
+  0.0%;runtime-PNP0C0E:00
+  0.0%;runtime-i2c_designware.0
+  0.0%;PCI Device: Intel Corporation Alder Lake PCH Serial IO I2C Controller #0
+  0.0%;I2C Adapter (i2c-7): i915 gmbus tc3
+  0.0%;runtime-pcspkr
+  0.0%;runtime-idma64.0
+  0.0%;runtime-vboxdrv.0
+  0.0%;runtime-INTC1046:00
+  0.0%;runtime-LEN0268:00
+  0.0%;I2C Adapter (i2c-3): i915 gmbus dpb
+  0.0%;I2C Device (i2c-SYNA8018:00): SYNA8018:00
+  0.0%;I2C Adapter (i2c-10): i915 gmbus tc6
+  0.0%;I2C Adapter (i2c-1): Synopsys DesignWare I2C adapter
+  0.0%;I2C Adapter (i2c-4): i915 gmbus dpc
+  0.0%;I2C Adapter (i2c-14): AUX USBC3/DDI TC3/PHY TC3
+  0.0%;runtime-PNP0C14:02
+  0.0%;I2C Adapter (i2c-8): i915 gmbus tc4
+  0.0%;I2C Adapter (i2c-9): i915 gmbus tc5
+  0.0%;I2C Adapter (i2c-0): SMBus I801 adapter at efa0
+  0.0%;I2C Adapter (i2c-2): i915 gmbus dpa
+  0.0%;I2C Adapter (i2c-15): AUX USBC4/DDI TC4/PHY TC4
+  0.0%;I2C Adapter (i2c-6): i915 gmbus tc2
+  0.0%;I2C Adapter (i2c-11): AUX A/DDI A/PHY A
+  0.0%;I2C Adapter (i2c-13): AUX USBC2/DDI TC2/PHY TC2
+  0.0%;I2C Adapter (i2c-5): i915 gmbus tc1
+  0.0%;I2C Adapter (i2c-12): AUX USBC1/DDI TC1/PHY TC1
+____________________________________________________________________
+ *  *  *   Process Device Activity   *  *  *
+
+Process;Device
+systemd;/dev/autofs
+;/dev/kmsg
+acpid;/dev/input/event0
+;/dev/input/event1
+;/dev/input/event10
+;/dev/input/event11
+;/dev/input/event12
+;/dev/input/event13
+;/dev/input/event14
+;/dev/input/event15
+;/dev/input/event16
+;/dev/input/event2
+;/dev/input/event3
+;/dev/input/event4
+;/dev/input/event5
+systemd-logind;/dev/input/event0
+;/dev/input/event1
+;/dev/input/event10
+;/dev/input/event2
+;/dev/input/event3
+;/dev/input/event4
+;/dev/input/event5
+upowerd;/dev/input/event1
+bluetoothd;/dev/rfkill
+tailscaled;/dev/net/tun
+wpa_supplicant;/dev/rfkill
+;/dev/rfkill
+Xorg;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/input/event0
+;/dev/input/event10
+;/dev/input/event11
+;/dev/input/event2
+;/dev/input/event3
+;/dev/input/event4
+;/dev/input/event5
+;/dev/input/event7
+;/dev/input/event8
+;/dev/input/event9
+;/dev/vga_arbiter
+nm-applet;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+pasystray;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+blueman-applet;/dev/rfkill
+xdg-document-po;/dev/fuse
+gvfsd-fuse;/dev/fuse
+pulseaudio;/dev/snd/controlC0
+;/dev/snd/controlC0
+;/dev/snd/controlC0
+;/dev/snd/controlC0
+;/dev/snd/controlC0
+;/dev/snd/controlC0
+rememberthemilk;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+;/dev/dri/renderD128
+whatsdesk;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+;/dev/dri/renderD128
+electron;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+slack;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+udisksd;/dev/random
+spotify;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+chrome;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+;/dev/dri/renderD128
+;/dev/dri/renderD128
+systemd-journal;/dev/kmsg
+;/dev/kmsg
+cursor-0.44.8-b;/dev/fuse
+cursor;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+alacritty;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+
+____________________________________________________________________
+ *  *  *   AHCI ALPM Residency Statistics - Not supported on this macine   *  *  *
+
+____________________________________________________________________
+ *  *  *   Software Settings in Need of Tuning   *  *  *
+
+Description;Script
+VM writeback timeout;echo '1500' > '/proc/sys/vm/dirty_writeback_centisecs';
+Autosuspend for USB device YubiKey OTP+FIDO+CCID [Yubico];echo 'auto' > '/sys/bus/usb/devices/3-1/power/control';
+____________________________________________________________________
+ *  *  *   Untunable Software Issues   *  *  *
+
+Description
+I2C Adapter i2c-3 has no runtime power management
+I2C Device i2c-SYNA8018:00 has no runtime power management
+I2C Adapter i2c-10 has no runtime power management
+I2C Adapter i2c-1 has no runtime power management
+I2C Adapter i2c-8 has no runtime power management
+I2C Adapter i2c-15 has no runtime power management
+I2C Adapter i2c-6 has no runtime power management
+I2C Adapter i2c-13 has no runtime power management
+I2C Adapter i2c-4 has no runtime power management
+I2C Adapter i2c-11 has no runtime power management
+I2C Adapter i2c-2 has no runtime power management
+I2C Adapter i2c-0 has no runtime power management
+I2C Adapter i2c-9 has no runtime power management
+I2C Adapter i2c-7 has no runtime power management
+I2C Adapter i2c-14 has no runtime power management
+I2C Adapter i2c-5 has no runtime power management
+I2C Adapter i2c-12 has no runtime power management
+____________________________________________________________________
+ *  *  *   Optimal Tuned Software Settings   *  *  *
+
+Description
+Wireless Power Saving for interface wlan0
+NMI watchdog should be turned off
+Bluetooth device interface status
+Enable Audio codec power management
+Autosuspend for unknown USB device 3-10 (8087:0033)
+Autosuspend for USB device Goodix USB2.0 MISC [Goodix Technology Co., Ltd.]
+Autosuspend for USB device Integrated Camera [Chicony Electronics Co.,Ltd.]
+Autosuspend for USB device xHCI Host Controller [usb1]
+Autosuspend for USB device xHCI Host Controller [usb2]
+Autosuspend for USB device xHCI Host Controller [usb3]
+Autosuspend for USB device xHCI Host Controller [usb4]
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH eSPI Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake-P Thunderbolt 4 PCI Express Root Port #2
+Runtime PM for PCI Device Intel Corporation Alder Lake Innovation Platform Framework Processor Participant
+Runtime PM for PCI Device Intel Corporation Alder Lake-P PCH CNVi WiFi
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH HECI Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake-P Thunderbolt 4 PCI Express Root Port #0
+Runtime PM for PCI Device Intel Corporation Alder Lake-P PCH SPI Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake-P Thunderbolt 4 NHI #1
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH-P High Definition Audio Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake-P Thunderbolt 4 USB Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH Serial IO I2C Controller #0
+Runtime PM for PCI Device Intel Corporation 12th Gen Core Processor PCI Express x4 Controller #0
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH Shared SRAM
+Runtime PM for PCI Device SK hynix Gold P31/BC711/PC711 NVMe Solid State Drive
+Runtime PM for PCI Device Intel Corporation Alder Lake-P GT2 [Iris Xe Graphics]
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH USB 3.2 xHCI Host Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake PCH-P SMBus Host Controller
+Runtime PM for PCI Device Intel Corporation Alder Lake-P Thunderbolt 4 NHI #0
+Runtime PM for PCI Device Intel Corporation 12th Gen Core Processor Gaussian & Neural Accelerator
+Runtime PM for PCI Device Intel Corporation Device 4621
+
+____________________________________________________________________
+ *  *  *   Wake status of the devices   *  *  *
+
+Description;Script
+Wake-on-lan status for device wlan0;echo 'enabled' > '/sys/class/net/wlan0/device/power/wakeup';
+Wake status for USB device usb3;echo 'enabled' > '/sys/bus/usb/devices/usb3/power/wakeup';
+Wake status for USB device usb1;echo 'enabled' > '/sys/bus/usb/devices/usb1/power/wakeup';
+Wake status for USB device usb4;echo 'enabled' > '/sys/bus/usb/devices/usb4/power/wakeup';
+Wake status for USB device 3-10;echo 'enabled' > '/sys/bus/usb/devices/3-10/power/wakeup';
+Wake status for USB device usb2;echo 'enabled' > '/sys/bus/usb/devices/usb2/power/wakeup';
+Wake status for USB device 3-3;echo 'enabled' > '/sys/bus/usb/devices/3-3/power/wakeup';

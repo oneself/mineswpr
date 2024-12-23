@@ -2,7 +2,7 @@
   "name": "minesweeper",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://${GITHUB_USERNAME}.github.io/mineswpr",
+  "homepage": "https://oneself.github.io/mineswpr",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
