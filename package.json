@@ -2,7 +2,7 @@
   "name": "minesweeper",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://oneself.github.io/mineswpr",
+  "homepage": "https://mineswpr-a0f46.web.app",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "firebase deploy --only hosting"
   },
   "eslintConfig": {
     "extends": [
