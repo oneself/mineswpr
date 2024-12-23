@@ -2,9 +2,18 @@ import React, { useState, useCallback } from 'react';
 import { GameState, DIFFICULTY_CONFIG, Difficulty } from '../types/minesweeper';
 import { createBoard, revealCell, checkWin, autoRevealSafeCells } from '../utils/gameUtils';
 import { Cell } from './Cell';
+import { Modal } from './Modal';
 
-export const Minesweeper: React.FC = () => {
-  const [difficulty, setDifficulty] = useState<Difficulty>('easy');
+interface MinesweeperProps {
+  initialDifficulty: Difficulty;
+  onBackToStart: () => void;
+}
+
+export const Minesweeper: React.FC<MinesweeperProps> = ({ 
+  initialDifficulty,
+  onBackToStart,
+}) => {
+  const [difficulty] = useState<Difficulty>(initialDifficulty);
   const [gameState, setGameState] = useState<GameState>(() => {
     const config = DIFFICULTY_CONFIG[difficulty];
     return {
@@ -15,6 +24,7 @@ export const Minesweeper: React.FC = () => {
       flagCount: 0,
     };
   });
+  const [showModal, setShowModal] = useState(false);
 
   const handleCellClick = useCallback((row: number, col: number) => {
     if (gameState.gameOver || gameState.gameWon) return;
@@ -27,21 +37,27 @@ export const Minesweeper: React.FC = () => {
 
       if (cell.isMine) {
         cell.isRevealed = true;
+        setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
 
       const hitMine = revealCell(newBoard, row, col);
       if (hitMine) {
+        setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
       
       // Auto-reveal safe cells
       const { hitMine: autoRevealHitMine } = autoRevealSafeCells(newBoard);
       if (autoRevealHitMine) {
+        setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
       
       const won = checkWin(newBoard);
+      if (won) {
+        setShowModal(true);
+      }
 
       return {
         ...prev,
@@ -65,10 +81,14 @@ export const Minesweeper: React.FC = () => {
         // Auto-reveal safe cells after flagging
         const { hitMine } = autoRevealSafeCells(newBoard);
         if (hitMine) {
+          setShowModal(true);
           return { ...prev, board: newBoard, gameOver: true };
         }
         
         const won = checkWin(newBoard);
+        if (won) {
+          setShowModal(true);
+        }
         
         return {
           ...prev,
@@ -90,20 +110,18 @@ export const Minesweeper: React.FC = () => {
       mineCount: config.mines,
       flagCount: 0,
     });
+    setShowModal(false);
   }, [difficulty]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <div className="mb-4 space-x-2">
-        <select
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value as Difficulty)}
-          className="px-3 py-2 border rounded"
+      <div className="mb-4 space-x-2 flex items-center">
+        <button
+          onClick={onBackToStart}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
         >
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
+          ← Back
+        </button>
         <button
           onClick={resetGame}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -133,11 +151,14 @@ export const Minesweeper: React.FC = () => {
         ))}
       </div>
 
-      {(gameState.gameOver || gameState.gameWon) && (
-        <div className="mt-4 text-xl font-bold">
-          {gameState.gameWon ? 'You Won! 🎉' : 'Game Over! 💥'}
-        </div>
-      )}
+      <Modal
+        isOpen={showModal}
+        title={gameState.gameWon ? "Congratulations!" : "Game Over"}
+        message={gameState.gameWon ? "You've won! 🎉" : "You hit a mine! 💥"}
+        onClose={() => setShowModal(false)}
+        onRestart={resetGame}
+        onBackToStart={onBackToStart}
+      />
     </div>
   );
 }; 

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Minesweeper } from './components/Minesweeper';
+import { Game } from './components/Game';
 
 function App() {
   return (
     <div className="App">
-      <Minesweeper />
+      <Game />
     </div>
   );
 }
