@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Cell as CellType } from '../types/minesweeper';
 
 interface CellProps {
@@ -8,39 +8,50 @@ interface CellProps {
 }
 
 export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
-  const [touchTimeout, setTouchTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [touchStartTime, setTouchStartTime] = useState<number>(0);
+  const [isLongPress, setIsLongPress] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleTouchStart = useCallback(() => {
-    setTouchStartTime(Date.now());
-    const timeout = setTimeout(() => {
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior
+    timeoutRef.current = setTimeout(() => {
+      setIsLongPress(true);
       onFlag();
-    }, 500);
-    setTouchTimeout(timeout);
+    }, 300);
   }, [onFlag]);
 
-  const handleTouchEnd = useCallback(() => {
-    if (touchTimeout) {
-      clearTimeout(touchTimeout);
-      setTouchTimeout(null);
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
-    
-    if (Date.now() - touchStartTime < 500) {
+    if (!isLongPress) {
       onReveal();
     }
-  }, [touchTimeout, touchStartTime, onReveal]);
+    setIsLongPress(false);
+  }, [isLongPress, onReveal]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      setIsLongPress(false);
+    }
+  }, []);
+
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent context menu
+    onFlag();
+  }, [onFlag]);
 
   return (
     <button
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onTouchMove={handleTouchMove}
+      onContextMenu={handleContextMenu}
       onClick={onReveal}
-      onContextMenu={(e) => {
-        e.preventDefault();
-        onFlag();
-      }}
       className={`
-        w-8 h-8 flex items-center justify-center
+        w-8 h-8 flex items-center justify-center select-none touch-none
         ${cell.isRevealed
           ? 'bg-gray-200'
           : 'bg-gray-400 hover:bg-gray-500'}
