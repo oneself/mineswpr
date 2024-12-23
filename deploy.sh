@@ -52,16 +52,10 @@ fi
 
 # Commit any pending changes
 if [ -n "$(git status --porcelain)" ]; then
-    echo -e "${YELLOW}Uncommitted changes detected. Committing...${NC}"
-    git add .
-    git commit -m "Update before deployment"
+    echo -e "${YELLOW}Uncommitted changes detected.${NC}"
+    echo -e "${YELLOW}Please commit changes first${NC}"
+    exit 1
 fi
-
-# Pull latest changes
-echo -e "${GREEN}Pulling latest changes...${NC}"
-git pull origin $(git branch --show-current) || {
-    echo -e "${YELLOW}Could not pull. You might need to push your changes first.${NC}"
-}
 
 # Build and deploy
 echo -e "${GREEN}Building and deploying...${NC}"
