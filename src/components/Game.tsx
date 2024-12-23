@@ -5,7 +5,14 @@ import { Minesweeper } from './Minesweeper';
 
 export const Game: React.FC = () => {
   const [page, setPage] = useState<GamePage>('start');
-  const [settings, setSettings] = useState<GameSettings>({ difficulty: 'easy' });
+  const [settings, setSettings] = useState<GameSettings>({ 
+    difficulty: 'easy',
+    config: {
+      rows: 9,
+      cols: 9,
+      mines: 10
+    }
+  });
 
   const handleStart = (newSettings: GameSettings) => {
     setSettings(newSettings);
@@ -21,7 +28,8 @@ export const Game: React.FC = () => {
       {page === 'start' && <StartPage onStart={handleStart} />}
       {page === 'game' && (
         <Minesweeper 
-          initialDifficulty={settings.difficulty} 
+          initialDifficulty={settings.difficulty}
+          initialConfig={settings.config}
           onBackToStart={handleBackToStart}
         />
       )}

@@ -15,7 +15,7 @@ export interface GameState {
   flagCount: number;
 }
 
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Difficulty = 'easy' | 'medium' | 'hard' | 'custom';
 
 export interface GameConfig {
   rows: number;
@@ -27,4 +27,5 @@ export const DIFFICULTY_CONFIG: Record<Difficulty, GameConfig> = {
   easy: { rows: 9, cols: 9, mines: 10 },
   medium: { rows: 16, cols: 16, mines: 40 },
   hard: { rows: 16, cols: 30, mines: 99 },
+  custom: { rows: 9, cols: 9, mines: 10 },
 }; 

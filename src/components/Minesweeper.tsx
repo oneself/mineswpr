@@ -1,26 +1,27 @@
 import React, { useState, useCallback } from 'react';
-import { GameState, DIFFICULTY_CONFIG, Difficulty } from '../types/minesweeper';
+import { GameState, DIFFICULTY_CONFIG, Difficulty, GameConfig } from '../types/minesweeper';
 import { createBoard, revealCell, checkWin, autoRevealSafeCells } from '../utils/gameUtils';
 import { Cell } from './Cell';
 import { Modal } from './Modal';
 
 interface MinesweeperProps {
   initialDifficulty: Difficulty;
+  initialConfig: GameConfig;
   onBackToStart: () => void;
 }
 
 export const Minesweeper: React.FC<MinesweeperProps> = ({ 
   initialDifficulty,
+  initialConfig,
   onBackToStart,
 }) => {
   const [difficulty] = useState<Difficulty>(initialDifficulty);
   const [gameState, setGameState] = useState<GameState>(() => {
-    const config = DIFFICULTY_CONFIG[difficulty];
     return {
-      board: createBoard(config),
+      board: createBoard(initialConfig),
       gameOver: false,
       gameWon: false,
-      mineCount: config.mines,
+      mineCount: initialConfig.mines,
       flagCount: 0,
     };
   });
@@ -102,7 +103,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
   }, [gameState.gameOver, gameState.gameWon]);
 
   const resetGame = useCallback(() => {
-    const config = DIFFICULTY_CONFIG[difficulty];
+    const config = difficulty === 'custom' ? initialConfig : DIFFICULTY_CONFIG[difficulty];
     setGameState({
       board: createBoard(config),
       gameOver: false,
@@ -111,7 +112,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
       flagCount: 0,
     });
     setShowModal(false);
-  }, [difficulty]);
+  }, [difficulty, initialConfig]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
