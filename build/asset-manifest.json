@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mineswpr/static/css/main.f8a6c6f9.css",
+    "main.js": "/mineswpr/static/js/main.93419584.js",
+    "index.html": "/mineswpr/index.html",
+    "main.f8a6c6f9.css.map": "/mineswpr/static/css/main.f8a6c6f9.css.map",
+    "main.93419584.js.map": "/mineswpr/static/js/main.93419584.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f8a6c6f9.css",
+    "static/js/main.93419584.js"
+  ]
+}
