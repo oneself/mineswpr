@@ -11,8 +11,11 @@ const calculateBoardSize = () => {
   const cellSize = 32;
   const headerHeight = 150; // Space for header elements
   
+  // Detect if we're on a mobile device (viewport width less than 768px)
+  const isMobile = viewportWidth < 768;
+  
   // Calculate maximum number of cells that can fit
-  const maxCols = Math.floor(viewportWidth / cellSize) - 5; // Remove 5 columns for spacing
+  const maxCols = Math.floor(viewportWidth / cellSize) - (isMobile ? 3 : 5); // Remove fewer columns on mobile
   const maxRows = Math.floor((viewportHeight - headerHeight) / cellSize);
   
   // Ensure minimum size but don't limit maximum width
