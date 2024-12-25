@@ -114,12 +114,6 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-2">
-      <div className="mb-4">
-        <span className="text-lg font-bold">
-          Mines: {gameState.mineCount - gameState.flagCount}
-        </span>
-      </div>
-
       <div className="grid gap-1 bg-gray-300 p-2 rounded">
         {gameState.board.map((row, rowIndex) => (
           <div key={rowIndex} className="flex gap-1">

@@ -16,11 +16,11 @@ const calculateBoardSize = () => {
   
   // Calculate maximum number of cells that can fit
   const maxCols = Math.floor(viewportWidth / cellSize) - (isMobile ? 3 : 5); // Remove fewer columns on mobile
-  const maxRows = Math.floor((viewportHeight - headerHeight) / cellSize);
+  const maxRows = Math.floor((viewportHeight - headerHeight) / cellSize) + 1;
   
   // Ensure minimum size but don't limit maximum width
   const cols = Math.max(maxCols, 8);
-  const rows = Math.max(Math.min(maxRows, 24), 8);
+  const rows = Math.max(maxRows, 8); // Only keep minimum row limit
   
   // Calculate mines (approximately 15% of cells)
   const totalCells = rows * cols;
