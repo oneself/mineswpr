@@ -24,10 +24,10 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
     touchStartTimeRef.current = Date.now();
     timeoutRef.current = setTimeout(() => {
       setIsLongPress(true);
-      onFlag();
+      onReveal();
       vibrate();
     }, 500); // Increased to 500ms for more reliable long press detection
-  }, [onFlag, vibrate]);
+  }, [onReveal, vibrate]);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
@@ -38,13 +38,13 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
       timeoutRef.current = null;
     }
 
-    // Only trigger reveal if it was a short tap (less than 500ms)
+    // Only trigger flag if it was a short tap (less than 500ms)
     if (touchDuration < 500 && !isLongPress) {
-      onReveal();
+      onFlag();
     }
 
     setIsLongPress(false);
-  }, [isLongPress, onReveal]);
+  }, [isLongPress, onFlag]);
 
   const handleTouchCancel = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
@@ -66,8 +66,8 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
 
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault(); // Prevent context menu
-    onFlag();
-  }, [onFlag]);
+    onReveal();
+  }, [onReveal]);
 
   return (
     <button
@@ -79,7 +79,7 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
       onClick={(e) => {
         // Only handle click for non-touch devices
         if (!('ontouchstart' in window)) {
-          onReveal();
+          onFlag();
         }
       }}
       className={`
