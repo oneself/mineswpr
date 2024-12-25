@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GameSettings } from '../types/game';
 import { Minesweeper } from './Minesweeper';
+import { IntroOverlay } from './IntroOverlay';
 
 const calculateBoardSize = () => {
   // Get viewport dimensions
@@ -30,6 +31,7 @@ const calculateBoardSize = () => {
 };
 
 export const Game: React.FC = () => {
+  const [showIntro, setShowIntro] = useState(true);
   const [settings, setSettings] = useState<GameSettings>(() => ({
     difficulty: 'custom',
     config: calculateBoardSize()
@@ -54,6 +56,7 @@ export const Game: React.FC = () => {
         initialDifficulty={settings.difficulty}
         initialConfig={settings.config}
       />
+      {showIntro && <IntroOverlay onStart={() => setShowIntro(false)} />}
     </div>
   );
 }; 
