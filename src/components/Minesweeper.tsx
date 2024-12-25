@@ -7,13 +7,11 @@ import { Modal } from './Modal';
 interface MinesweeperProps {
   initialDifficulty: Difficulty;
   initialConfig: GameConfig;
-  onBackToStart: () => void;
 }
 
 export const Minesweeper: React.FC<MinesweeperProps> = ({ 
   initialDifficulty,
   initialConfig,
-  onBackToStart,
 }) => {
   const [difficulty] = useState<Difficulty>(initialDifficulty);
   const [gameState, setGameState] = useState<GameState>(() => {
@@ -115,22 +113,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
   }, [difficulty, initialConfig]);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <div className="mb-4 space-x-2 flex items-center">
-        <button
-          onClick={onBackToStart}
-          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-        >
-          ← Back
-        </button>
-        <button
-          onClick={resetGame}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Reset
-        </button>
-      </div>
-
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-2">
       <div className="mb-4">
         <span className="text-lg font-bold">
           Mines: {gameState.mineCount - gameState.flagCount}
@@ -158,7 +141,6 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
         message={gameState.gameWon ? "You've won! 🎉" : "You hit a mine! 💥"}
         onClose={() => setShowModal(false)}
         onRestart={resetGame}
-        onBackToStart={onBackToStart}
       />
     </div>
   );

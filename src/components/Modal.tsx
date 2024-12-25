@@ -6,7 +6,6 @@ interface ModalProps {
   message: string;
   onClose: () => void;
   onRestart?: () => void;
-  onBackToStart?: () => void;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -15,7 +14,6 @@ export const Modal: React.FC<ModalProps> = ({
   message,
   onClose,
   onRestart,
-  onBackToStart,
 }) => {
   if (!isOpen) return null;
 
@@ -32,15 +30,6 @@ export const Modal: React.FC<ModalProps> = ({
               className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors"
             >
               Play Again
-            </button>
-          )}
-          
-          {onBackToStart && (
-            <button
-              onClick={onBackToStart}
-              className="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors"
-            >
-              Back to Start
             </button>
           )}
           
