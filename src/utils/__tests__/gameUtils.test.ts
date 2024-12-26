@@ -102,9 +102,14 @@ describe('gameUtils', () => {
     let board: Cell[][];
 
     beforeEach(() => {
-      board = createBoard({ rows: 2, cols: 2, mines: 1 });
+      // Create a board with no mines first
+      board = createBoard({ rows: 2, cols: 2, mines: 0 });
       // Place mine at (0,0)
       board[0][0].isMine = true;
+      // Update neighbor counts
+      board[0][1].neighborMines++;
+      board[1][0].neighborMines++;
+      board[1][1].neighborMines++;
       // Reset all cells to unrevealed
       board.forEach(row => row.forEach(cell => {
         cell.isRevealed = false;

@@ -59,7 +59,7 @@ dev:
 # Run tests once
 test:
 	@echo "${GREEN}Running tests...${NC}"
-	CI=true npm test
+	npm test --watchAll=false
 
 # Run tests in watch mode
 test-watch:

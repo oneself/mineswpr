@@ -14,26 +14,51 @@ const calculateBoardSize = () => {
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
   
-  // Calculate cell size based on the Cell component's width (w-8 = 2rem = 32px)
-  const cellSize = 32;
-  const headerHeight = 150; // Space for header elements
-  
-  // Detect if we're on a mobile device (viewport width less than 768px)
-  const isMobile = viewportWidth < 768;
-  
-  // Calculate maximum number of cells that can fit
-  const maxCols = Math.floor(viewportWidth / cellSize) - (isMobile ? 3 : 5); // Remove fewer columns on mobile
-  const maxRows = Math.floor((viewportHeight - headerHeight) / cellSize) + 1;
-  
-  // Ensure minimum size but don't limit maximum width
-  const cols = Math.max(maxCols, 8);
-  const rows = Math.max(maxRows, 8); // Only keep minimum row limit
-  
+  // Define fixed board sizes for different screen sizes
+  const sizeConstraints = {
+    smallMobile: {
+      rows: 10,
+      cols: 10,
+      cellSize: 32
+    },
+    largeMobile: {
+      rows: 14,
+      cols: 14,
+      cellSize: 30
+    },
+    tablet: {
+      rows: 18,
+      cols: 18,
+      cellSize: 28
+    },
+    desktop: {
+      rows: 22,
+      cols: 22,
+      cellSize: 26
+    }
+  };
+
+  // Determine device type and get constraints
+  let constraints;
+  if (viewportWidth < 480) {
+    constraints = sizeConstraints.smallMobile;
+  } else if (viewportWidth < 768) {
+    constraints = sizeConstraints.largeMobile;
+  } else if (viewportWidth < 1024) {
+    constraints = sizeConstraints.tablet;
+  } else {
+    constraints = sizeConstraints.desktop;
+  }
+
   // Calculate mines (approximately 5% of cells)
-  const totalCells = rows * cols;
+  const totalCells = constraints.rows * constraints.cols;
   const mines = Math.floor(totalCells * 0.05);
-  
-  return { rows, cols, mines };
+
+  return {
+    rows: constraints.rows,
+    cols: constraints.cols,
+    mines
+  };
 };
 
 /**
@@ -52,6 +77,11 @@ export const Game: React.FC = () => {
 
   // Recalculate board size whenever the window is resized
   useEffect(() => {
+    // Force an immediate recalculation
+    setSettings({
+      config: calculateBoardSize()
+    });
+
     const handleResize = () => {
       setSettings({
         config: calculateBoardSize()
@@ -66,6 +96,7 @@ export const Game: React.FC = () => {
     <div>
       <Minesweeper 
         initialConfig={settings.config}
+        key={`${settings.config.rows}-${settings.config.cols}`} // Force remount on size change
       />
       {showIntro && <IntroOverlay onStart={() => setShowIntro(false)} />}
     </div>

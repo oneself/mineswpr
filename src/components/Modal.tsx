@@ -19,7 +19,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+      <div role="dialog" aria-modal="true" className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
         <h2 className="text-2xl font-bold mb-4 text-center">{title}</h2>
         <p className="text-lg text-center mb-6">{message}</p>
         
