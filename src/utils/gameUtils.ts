@@ -1,6 +1,9 @@
 import { Cell, GameConfig } from '../types/minesweeper';
+import { loggers, stringifyForLog } from './logger';
 
 export const createBoard = (config: GameConfig): Cell[][] => {
+  loggers.utils('Creating board with config: %s', stringifyForLog(config));
+  
   const { rows, cols } = config;
   const board: Cell[][] = [];
 
@@ -22,6 +25,8 @@ export const createBoard = (config: GameConfig): Cell[][] => {
 };
 
 const placeMines = (board: Cell[][], config: GameConfig): Cell[][] => {
+  loggers.utils('Placing %d mines on board', config.mines);
+  
   const { rows, cols, mines } = config;
   let minesPlaced = 0;
 
@@ -33,6 +38,7 @@ const placeMines = (board: Cell[][], config: GameConfig): Cell[][] => {
       board[row][col].isMine = true;
       minesPlaced++;
       updateNeighborCounts(board, row, col);
+      loggers.utils('Placed mine at [%d,%d], %d mines remaining', row, col, mines - minesPlaced);
     }
   }
 
@@ -50,20 +56,16 @@ const updateNeighborCounts = (board: Cell[][], row: number, col: number): void =
 
 export const getNeighbors = (board: Cell[][], row: number, col: number): Cell[] => {
   const neighbors: Cell[] = [];
-  const directions = [
-    [-1, -1], [-1, 0], [-1, 1],
-    [0, -1],           [0, 1],
-    [1, -1],  [1, 0],  [1, 1]
-  ];
+  const maxRow = board.length - 1;
+  const maxCol = board[0].length - 1;
 
-  directions.forEach(([dx, dy]) => {
-    const newRow = row + dx;
-    const newCol = col + dy;
-    if (newRow >= 0 && newRow < board.length && 
-        newCol >= 0 && newCol < board[0].length) {
-      neighbors.push(board[newRow][newCol]);
+  for (let r = Math.max(0, row - 1); r <= Math.min(maxRow, row + 1); r++) {
+    for (let c = Math.max(0, col - 1); c <= Math.min(maxCol, col + 1); c++) {
+      if (r !== row || c !== col) {
+        neighbors.push(board[r][c]);
+      }
     }
-  });
+  }
 
   return neighbors;
 };
@@ -102,44 +104,58 @@ const findSafeCellsToReveal = (board: Cell[][]): Cell[] => {
 export const revealCell = (board: Cell[][], row: number, col: number): boolean => {
   const cell = board[row][col];
   
-  if (cell.isRevealed || cell.isFlagged) return false;
-  
-  cell.isRevealed = true;
-
-  // If it's a mine, return true to indicate mine hit
-  if (cell.isMine) return true;
-
-  // If it's a cell with no adjacent mines, reveal all neighbors
-  if (cell.neighborMines === 0) {
-    const neighbors = getNeighbors(board, row, col);
-    for (const neighbor of neighbors) {
-      if (!neighbor.isRevealed && !neighbor.isFlagged) {
-        if (revealCell(board, neighbor.row, neighbor.col)) {
-          return true; // Propagate mine hit
-        }
-      }
-    }
+  if (cell.isFlagged) {
+    loggers.utils('Attempted to reveal flagged cell at [%d,%d]', row, col);
+    return false;
   }
 
-  return false; // No mine hit
+  if (cell.isRevealed) {
+    loggers.utils('Cell at [%d,%d] already revealed', row, col);
+    return false;
+  }
+
+  cell.isRevealed = true;
+  
+  if (cell.isMine) {
+    loggers.utils('Hit mine at [%d,%d]', row, col);
+    return true;
+  }
+
+  loggers.utils('Revealed safe cell at [%d,%d] with %d neighbor mines', row, col, cell.neighborMines);
+  
+  // If cell has no neighboring mines, reveal neighbors
+  if (cell.neighborMines === 0) {
+    loggers.utils('Auto-revealing neighbors of cell [%d,%d]', row, col);
+    const neighbors = getNeighbors(board, row, col);
+    neighbors.forEach(neighbor => {
+      if (!neighbor.isRevealed && !neighbor.isFlagged) {
+        revealCell(board, neighbor.row, neighbor.col);
+      }
+    });
+  }
+
+  return false;
 };
 
 export const autoRevealSafeCells = (board: Cell[][]): { hitMine: boolean } => {
+  loggers.utils('Starting auto-reveal of safe cells');
   let safeCells = findSafeCellsToReveal(board);
   
   while (safeCells.length > 0) {
     for (const cell of safeCells) {
-      if (!cell.isRevealed && !cell.isFlagged) {
-        if (revealCell(board, cell.row, cell.col)) {
+      if (!cell.isFlagged && !cell.isRevealed) {
+        if (cell.isMine) {
+          loggers.utils('Auto-reveal hit mine at [%d,%d]', cell.row, cell.col);
           return { hitMine: true };
         }
+        cell.isRevealed = true;
+        loggers.utils('Auto-revealed safe cell at [%d,%d]', cell.row, cell.col);
       }
     }
-    
-    // Look for more safe cells that might have been revealed
     safeCells = findSafeCellsToReveal(board);
   }
   
+  loggers.utils('Auto-reveal complete, no mines hit');
   return { hitMine: false };
 };
 
@@ -148,9 +164,12 @@ export const checkWin = (board: Cell[][]): boolean => {
     for (let col = 0; col < board[0].length; col++) {
       const cell = board[row][col];
       if (!cell.isMine && !cell.isRevealed) {
+        loggers.utils('Game not won: unrevealed safe cell at [%d,%d]', row, col);
         return false;
       }
     }
   }
+  
+  loggers.utils('Game won! All safe cells revealed');
   return true;
 }; 

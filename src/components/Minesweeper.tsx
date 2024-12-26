@@ -3,6 +3,7 @@ import { GameState, GameConfig } from '../types/minesweeper';
 import { createBoard, revealCell, checkWin, autoRevealSafeCells } from '../utils/gameUtils';
 import { Cell } from './Cell';
 import { Modal } from './Modal';
+import { loggers, stringifyForLog } from '../utils/logger';
 
 /**
  * Props for the Minesweeper component
@@ -19,15 +20,22 @@ interface MinesweeperProps {
 export const Minesweeper: React.FC<MinesweeperProps> = ({ 
   initialConfig,
 }) => {
+  loggers.board('Initializing Minesweeper with config: %s', stringifyForLog(initialConfig));
+  
   // Initialize game state with a new board
   const [gameState, setGameState] = useState<GameState>(() => {
-    return {
+    const initialState = {
       board: createBoard(initialConfig),
       gameOver: false,
       gameWon: false,
       mineCount: initialConfig.mines,
       flagCount: 0,
     };
+    loggers.board('Initial game state created: %s', stringifyForLog({
+      ...initialState,
+      board: `${initialState.board.length}x${initialState.board[0].length} board`
+    }));
+    return initialState;
   });
   
   // Control visibility of the win/lose modal
@@ -42,39 +50,47 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
    * @param col - The column index of the clicked cell
    */
   const handleCellClick = useCallback((row: number, col: number) => {
-    if (gameState.gameOver || gameState.gameWon) return;
+    if (gameState.gameOver || gameState.gameWon) {
+      loggers.board('Click ignored - game already %s', gameState.gameWon ? 'won' : 'over');
+      return;
+    }
 
+    loggers.board('Cell clicked at [%d,%d]', row, col);
     setGameState(prev => {
       const newBoard = prev.board.map(row => row.map(cell => ({ ...cell })));
       const cell = newBoard[row][col];
 
-      // Don't reveal flagged cells
-      if (cell.isFlagged) return prev;
+      if (cell.isFlagged) {
+        loggers.board('Click ignored - cell [%d,%d] is flagged', row, col);
+        return prev;
+      }
 
-      // Game over if mine is clicked
       if (cell.isMine) {
+        loggers.board('Mine hit at [%d,%d] - game over', row, col);
         cell.isRevealed = true;
         setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
 
-      // Reveal the clicked cell and its neighbors
+      loggers.board('Revealing cell at [%d,%d]', row, col);
       const hitMine = revealCell(newBoard, row, col);
       if (hitMine) {
+        loggers.board('Mine hit during reveal - game over');
         setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
       
-      // Auto-reveal safe cells
+      loggers.board('Auto-revealing safe cells');
       const { hitMine: autoRevealHitMine } = autoRevealSafeCells(newBoard);
       if (autoRevealHitMine) {
+        loggers.board('Mine hit during auto-reveal - game over');
         setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
       
-      // Check if the game is won
       const won = checkWin(newBoard);
       if (won) {
+        loggers.board('Game won!');
         setShowModal(true);
       }
 
@@ -94,45 +110,62 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
    * @param col - The column index of the right-clicked cell
    */
   const handleCellRightClick = useCallback((row: number, col: number) => {
-    if (gameState.gameOver || gameState.gameWon) return;
+    if (gameState.gameOver || gameState.gameWon) {
+      loggers.board('Flag ignored - game already %s', gameState.gameWon ? 'won' : 'over');
+      return;
+    }
 
+    loggers.board('Cell flagged at [%d,%d]', row, col);
     setGameState(prev => {
       const newBoard = prev.board.map(row => row.map(cell => ({ ...cell })));
       const cell = newBoard[row][col];
 
-      if (!cell.isRevealed) {
-        // Toggle flag state
-        cell.isFlagged = !cell.isFlagged;
-        const newFlagCount = prev.flagCount + (cell.isFlagged ? 1 : -1);
-        
-        // Auto-reveal safe cells after flagging
+      if (cell.isRevealed) {
+        loggers.board('Flag ignored - cell [%d,%d] already revealed', row, col);
+        return prev;
+      }
+
+      cell.isFlagged = !cell.isFlagged;
+      const newFlagCount = prev.flagCount + (cell.isFlagged ? 1 : -1);
+      loggers.board('Flag count updated: %d/%d', newFlagCount, prev.mineCount);
+
+      // Auto-reveal safe cells after flagging
+      if (cell.isFlagged) {
+        loggers.board('Attempting auto-reveal after flagging cell [%d,%d]', row, col);
         const { hitMine } = autoRevealSafeCells(newBoard);
         if (hitMine) {
+          loggers.board('Mine hit during auto-reveal - game over');
           setShowModal(true);
-          return { ...prev, board: newBoard, gameOver: true };
+          return {
+            ...prev,
+            board: newBoard,
+            flagCount: newFlagCount,
+            gameOver: true
+          };
         }
-        
-        // Check if the game is won
-        const won = checkWin(newBoard);
-        if (won) {
-          setShowModal(true);
-        }
-        
-        return {
-          ...prev,
-          board: newBoard,
-          flagCount: newFlagCount,
-          gameWon: won,
-        };
       }
-      return prev;
+
+      // Check if the game is won
+      const won = checkWin(newBoard);
+      if (won) {
+        loggers.board('Game won after flagging!');
+        setShowModal(true);
+      }
+
+      return {
+        ...prev,
+        board: newBoard,
+        flagCount: newFlagCount,
+        gameWon: won
+      };
     });
   }, [gameState.gameOver, gameState.gameWon]);
 
   /**
    * Resets the game to its initial state with a new board.
    */
-  const resetGame = useCallback(() => {
+  const handleRestart = useCallback(() => {
+    loggers.board('Restarting game with config: %s', stringifyForLog(initialConfig));
     setGameState({
       board: createBoard(initialConfig),
       gameOver: false,
@@ -160,13 +193,15 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
         ))}
       </div>
 
-      <Modal
-        isOpen={showModal}
-        title={gameState.gameWon ? "Congratulations!" : "Game Over"}
-        message={gameState.gameWon ? "You've won! 🎉" : "You hit a mine! 💥"}
-        onClose={() => setShowModal(false)}
-        onRestart={resetGame}
-      />
+      {showModal && (
+        <Modal
+          isOpen={true}
+          title={gameState.gameWon ? "Congratulations!" : "Game Over"}
+          message={gameState.gameWon ? "You've won! 🎉" : "You hit a mine! 💥"}
+          onClose={() => setShowModal(false)}
+          onRestart={handleRestart}
+        />
+      )}
     </div>
   );
 } 

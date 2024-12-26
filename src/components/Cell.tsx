@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { Cell as CellType } from '../types/minesweeper';
+import { loggers } from '../utils/logger';
 
 /**
  * Props for the Cell component
@@ -33,9 +34,10 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
    */
   const vibrate = useCallback(() => {
     if (navigator.vibrate) {
-      navigator.vibrate(50); // 50ms vibration
+      loggers.cell('Triggering vibration for cell [%d,%d]', cell.row, cell.col);
+      navigator.vibrate(50);
     }
-  }, []);
+  }, [cell.row, cell.col]);
 
   /**
    * Handles the start of a touch interaction.
@@ -45,13 +47,15 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
    */
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
+    loggers.cell('Touch start on cell [%d,%d]', cell.row, cell.col);
     touchStartTimeRef.current = Date.now();
     timeoutRef.current = setTimeout(() => {
+      loggers.cell('Long press detected on cell [%d,%d]', cell.row, cell.col);
       setIsLongPress(true);
       onReveal();
       vibrate();
     }, 500); // Increased to 500ms for more reliable long press detection
-  }, [onReveal, vibrate]);
+  }, [onReveal, vibrate, cell.row, cell.col]);
 
   /**
    * Handles the end of a touch interaction.
@@ -62,6 +66,7 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
     const touchDuration = Date.now() - touchStartTimeRef.current;
+    loggers.cell('Touch end on cell [%d,%d], duration: %dms', cell.row, cell.col, touchDuration);
 
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -70,11 +75,12 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
 
     // Only trigger flag if it was a short tap (less than 500ms)
     if (touchDuration < 500 && !isLongPress) {
+      loggers.cell('Short tap detected on cell [%d,%d], flagging', cell.row, cell.col);
       onFlag();
     }
 
     setIsLongPress(false);
-  }, [isLongPress, onFlag]);
+  }, [isLongPress, onFlag, cell.row, cell.col]);
 
   /**
    * Handles cancellation of a touch interaction.
@@ -84,12 +90,13 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
    */
   const handleTouchCancel = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
+    loggers.cell('Touch cancelled on cell [%d,%d]', cell.row, cell.col);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
     setIsLongPress(false);
-  }, []);
+  }, [cell.row, cell.col]);
 
   /**
    * Handles touch movement during interaction.
@@ -99,12 +106,13 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
    */
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     e.preventDefault(); // Prevent default touch behavior
+    loggers.cell('Touch move detected on cell [%d,%d], cancelling long press', cell.row, cell.col);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
-      setIsLongPress(false);
     }
-  }, []);
+    setIsLongPress(false);
+  }, [cell.row, cell.col]);
 
   /**
    * Handles right-click on desktop devices.
@@ -114,8 +122,9 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
    */
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault(); // Prevent context menu
+    loggers.cell('Right click on cell [%d,%d], revealing', cell.row, cell.col);
     onReveal();
-  }, [onReveal]);
+  }, [onReveal, cell.row, cell.col]);
 
   return (
     <button
@@ -127,6 +136,7 @@ export const Cell: React.FC<CellProps> = ({ cell, onReveal, onFlag }) => {
       onClick={(e) => {
         // Only handle click for non-touch devices
         if (!('ontouchstart' in window)) {
+          loggers.cell('Left click on cell [%d,%d], flagging', cell.row, cell.col);
           onFlag();
         }
       }}

@@ -167,4 +167,45 @@ describe('Minesweeper', () => {
     // Should not call reveal function after game over
     expect(gameUtils.revealCell).not.toHaveBeenCalled();
   });
+
+  it('should auto-reveal safe cells after correctly flagging a mine', async () => {
+    // Create a mock board where flagging a mine should trigger auto-reveal
+    const mockBoard = [
+      [
+        { row: 0, col: 0, isMine: true, isRevealed: false, isFlagged: false, neighborMines: 0 },
+        { row: 0, col: 1, isMine: false, isRevealed: true, isFlagged: false, neighborMines: 1 },
+      ],
+      [
+        { row: 1, col: 0, isMine: false, isRevealed: false, isFlagged: false, neighborMines: 1 },
+        { row: 1, col: 1, isMine: false, isRevealed: false, isFlagged: false, neighborMines: 1 },
+      ],
+    ];
+
+    // Mock createBoard to return our test board
+    (gameUtils.createBoard as jest.Mock).mockReturnValue(mockBoard);
+    
+    // Mock autoRevealSafeCells to simulate finding safe cells
+    (gameUtils.autoRevealSafeCells as jest.Mock).mockReturnValue({ hitMine: false });
+
+    // Mock checkWin to return false (game not won yet)
+    (gameUtils.checkWin as jest.Mock).mockReturnValue(false);
+
+    // Ensure we're in desktop mode (no touch support)
+    delete (window as any).ontouchstart;
+
+    render(<Minesweeper initialConfig={{ rows: 2, cols: 2, mines: 1 }} />);
+
+    // Flag the mine at (0,0) using left click (desktop behavior)
+    const mineCell = screen.getAllByRole('button')[0];
+    
+    // Use act to handle state updates
+    await act(async () => {
+      fireEvent.click(mineCell);
+      // Wait for any state updates
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    // Verify that autoRevealSafeCells was called
+    expect(gameUtils.autoRevealSafeCells).toHaveBeenCalled();
+  });
 }); 
