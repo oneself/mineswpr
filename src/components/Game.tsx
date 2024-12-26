@@ -23,9 +23,9 @@ const calculateBoardSize = () => {
   const cols = Math.max(maxCols, 8);
   const rows = Math.max(maxRows, 8); // Only keep minimum row limit
   
-  // Calculate mines (approximately 15% of cells)
+  // Calculate mines (approximately 5% of cells)
   const totalCells = rows * cols;
-  const mines = Math.floor(totalCells * 0.15);
+  const mines = Math.floor(totalCells * 0.05);
   
   return { rows, cols, mines };
 };
@@ -33,7 +33,6 @@ const calculateBoardSize = () => {
 export const Game: React.FC = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [settings, setSettings] = useState<GameSettings>(() => ({
-    difficulty: 'custom',
     config: calculateBoardSize()
   }));
 
@@ -41,7 +40,6 @@ export const Game: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       setSettings({
-        difficulty: 'custom',
         config: calculateBoardSize()
       });
     };
@@ -53,7 +51,6 @@ export const Game: React.FC = () => {
   return (
     <div>
       <Minesweeper 
-        initialDifficulty={settings.difficulty}
         initialConfig={settings.config}
       />
       {showIntro && <IntroOverlay onStart={() => setShowIntro(false)} />}

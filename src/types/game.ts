@@ -1,7 +1,6 @@
-import { Difficulty, GameConfig } from './minesweeper';
+import { GameConfig } from './minesweeper';
 
 export interface GameSettings {
-  difficulty: Difficulty;
   config: GameConfig;
 }
 
