@@ -3,6 +3,12 @@ import { GameSettings } from '../types/game';
 import { Minesweeper } from './Minesweeper';
 import { IntroOverlay } from './IntroOverlay';
 
+/**
+ * Calculates the optimal board size and number of mines based on the viewport dimensions.
+ * The calculation ensures the board fits well on both mobile and desktop screens.
+ * 
+ * @returns {GameConfig} Configuration object with rows, columns, and number of mines
+ */
 const calculateBoardSize = () => {
   // Get viewport dimensions
   const viewportWidth = window.innerWidth;
@@ -30,13 +36,21 @@ const calculateBoardSize = () => {
   return { rows, cols, mines };
 };
 
+/**
+ * The main Game component that manages the game state and handles the responsive board size.
+ * It automatically adjusts the board size when the window is resized and shows an intro
+ * overlay for first-time players.
+ */
 export const Game: React.FC = () => {
+  // Track whether to show the intro overlay
   const [showIntro, setShowIntro] = useState(true);
+  
+  // Initialize game settings with a board size calculated from viewport dimensions
   const [settings, setSettings] = useState<GameSettings>(() => ({
     config: calculateBoardSize()
   }));
 
-  // Recalculate board size on window resize
+  // Recalculate board size whenever the window is resized
   useEffect(() => {
     const handleResize = () => {
       setSettings({

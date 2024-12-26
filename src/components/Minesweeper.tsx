@@ -4,13 +4,22 @@ import { createBoard, revealCell, checkWin, autoRevealSafeCells } from '../utils
 import { Cell } from './Cell';
 import { Modal } from './Modal';
 
+/**
+ * Props for the Minesweeper component
+ */
 interface MinesweeperProps {
+  /** Initial configuration for the game board */
   initialConfig: GameConfig;
 }
 
+/**
+ * The main Minesweeper game component that handles the game logic and renders the board.
+ * It manages the game state, handles cell interactions, and determines win/lose conditions.
+ */
 export const Minesweeper: React.FC<MinesweeperProps> = ({ 
   initialConfig,
 }) => {
+  // Initialize game state with a new board
   const [gameState, setGameState] = useState<GameState>(() => {
     return {
       board: createBoard(initialConfig),
@@ -20,8 +29,18 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
       flagCount: 0,
     };
   });
+  
+  // Control visibility of the win/lose modal
   const [showModal, setShowModal] = useState(false);
 
+  /**
+   * Handles revealing a cell when clicked.
+   * If the cell contains a mine, the game ends.
+   * If the cell is safe, it reveals adjacent cells with no neighboring mines.
+   * 
+   * @param row - The row index of the clicked cell
+   * @param col - The column index of the clicked cell
+   */
   const handleCellClick = useCallback((row: number, col: number) => {
     if (gameState.gameOver || gameState.gameWon) return;
 
@@ -29,14 +48,17 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
       const newBoard = prev.board.map(row => row.map(cell => ({ ...cell })));
       const cell = newBoard[row][col];
 
+      // Don't reveal flagged cells
       if (cell.isFlagged) return prev;
 
+      // Game over if mine is clicked
       if (cell.isMine) {
         cell.isRevealed = true;
         setShowModal(true);
         return { ...prev, board: newBoard, gameOver: true };
       }
 
+      // Reveal the clicked cell and its neighbors
       const hitMine = revealCell(newBoard, row, col);
       if (hitMine) {
         setShowModal(true);
@@ -50,6 +72,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
         return { ...prev, board: newBoard, gameOver: true };
       }
       
+      // Check if the game is won
       const won = checkWin(newBoard);
       if (won) {
         setShowModal(true);
@@ -63,6 +86,13 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
     });
   }, [gameState.gameOver, gameState.gameWon]);
 
+  /**
+   * Handles flagging/unflagging a cell with right click.
+   * Flagged cells cannot be revealed until unflagged.
+   * 
+   * @param row - The row index of the right-clicked cell
+   * @param col - The column index of the right-clicked cell
+   */
   const handleCellRightClick = useCallback((row: number, col: number) => {
     if (gameState.gameOver || gameState.gameWon) return;
 
@@ -71,6 +101,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
       const cell = newBoard[row][col];
 
       if (!cell.isRevealed) {
+        // Toggle flag state
         cell.isFlagged = !cell.isFlagged;
         const newFlagCount = prev.flagCount + (cell.isFlagged ? 1 : -1);
         
@@ -81,6 +112,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
           return { ...prev, board: newBoard, gameOver: true };
         }
         
+        // Check if the game is won
         const won = checkWin(newBoard);
         if (won) {
           setShowModal(true);
@@ -97,6 +129,9 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
     });
   }, [gameState.gameOver, gameState.gameWon]);
 
+  /**
+   * Resets the game to its initial state with a new board.
+   */
   const resetGame = useCallback(() => {
     setGameState({
       board: createBoard(initialConfig),
