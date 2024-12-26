@@ -105,9 +105,14 @@ describe('gameUtils', () => {
       board = createBoard({ rows: 2, cols: 2, mines: 1 });
       // Place mine at (0,0)
       board[0][0].isMine = true;
+      // Reset all cells to unrevealed
+      board.forEach(row => row.forEach(cell => {
+        cell.isRevealed = false;
+      }));
     });
 
     it('should return true when all non-mine cells are revealed', () => {
+      // Reveal all non-mine cells
       board[0][1].isRevealed = true;
       board[1][0].isRevealed = true;
       board[1][1].isRevealed = true;
@@ -116,6 +121,7 @@ describe('gameUtils', () => {
     });
 
     it('should return false when some non-mine cells are not revealed', () => {
+      // Only reveal some non-mine cells
       board[0][1].isRevealed = true;
       board[1][0].isRevealed = true;
       // board[1][1] not revealed
