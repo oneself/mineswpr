@@ -4,7 +4,7 @@ GREEN := \033[0;32m
 YELLOW := \033[1;33m
 NC := \033[0m
 
-.PHONY: help setup install build deploy dev clean
+.PHONY: help setup install build deploy dev clean test test-watch test-coverage
 
 # Default target when just running 'make'
 help:
@@ -15,6 +15,9 @@ help:
 	@echo "  make deploy    - Deploy to Firebase (includes build)"
 	@echo "  make dev       - Start development server"
 	@echo "  make clean     - Remove build and dependency directories"
+	@echo "  make test      - Run tests once"
+	@echo "  make test-watch - Run tests in watch mode"
+	@echo "  make test-coverage - Run tests with coverage report"
 
 # First-time setup
 setup:
@@ -51,7 +54,22 @@ dev:
 	@echo "${GREEN}Starting development server...${NC}"
 	npm start
 
+# Run tests once
+test:
+	@echo "${GREEN}Running tests...${NC}"
+	npm test
+
+# Run tests in watch mode
+test-watch:
+	@echo "${GREEN}Running tests in watch mode...${NC}"
+	npm test -- --watch
+
+# Run tests with coverage report
+test-coverage:
+	@echo "${GREEN}Running tests with coverage report...${NC}"
+	npm test -- --coverage
+
 # Clean build and dependencies
 clean:
 	@echo "${YELLOW}Cleaning build and dependency directories...${NC}"
-	rm -rf build node_modules 
+	rm -rf build node_modules coverage 
