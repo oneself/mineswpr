@@ -38,6 +38,8 @@ setup:
 install:
 	@echo "${GREEN}Installing dependencies...${NC}"
 	npm install
+	@echo "${GREEN}Installing testing dependencies...${NC}"
+	npm install --save-dev @testing-library/react @testing-library/jest-dom @testing-library/user-event
 
 # Build the project
 build:
@@ -57,7 +59,7 @@ dev:
 # Run tests once
 test:
 	@echo "${GREEN}Running tests...${NC}"
-	npm test
+	CI=true npm test
 
 # Run tests in watch mode
 test-watch:
