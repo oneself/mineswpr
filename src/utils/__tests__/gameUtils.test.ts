@@ -110,26 +110,36 @@ describe('gameUtils', () => {
       board[0][1].neighborMines++;
       board[1][0].neighborMines++;
       board[1][1].neighborMines++;
-      // Reset all cells to unrevealed
+      // Reset all cells to unrevealed and unflagged
       board.forEach(row => row.forEach(cell => {
         cell.isRevealed = false;
+        cell.isFlagged = false;
       }));
     });
 
-    it('should return true when all non-mine cells are revealed', () => {
-      // Reveal all non-mine cells
-      board[0][1].isRevealed = true;
-      board[1][0].isRevealed = true;
-      board[1][1].isRevealed = true;
+    it('should return true when all mines are correctly flagged and no safe cells are flagged', () => {
+      // Flag only the mine
+      board[0][0].isFlagged = true;
       
       expect(checkWin(board)).toBe(true);
     });
 
-    it('should return false when some non-mine cells are not revealed', () => {
-      // Only reveal some non-mine cells
-      board[0][1].isRevealed = true;
-      board[1][0].isRevealed = true;
-      // board[1][1] not revealed
+    it('should return false when mine is not flagged', () => {
+      // Don't flag the mine
+      expect(checkWin(board)).toBe(false);
+    });
+
+    it('should return false when safe cell is incorrectly flagged', () => {
+      // Flag mine correctly but also flag a safe cell
+      board[0][0].isFlagged = true;
+      board[0][1].isFlagged = true;
+      
+      expect(checkWin(board)).toBe(false);
+    });
+
+    it('should return false when wrong cell is flagged instead of mine', () => {
+      // Flag wrong cell instead of mine
+      board[0][1].isFlagged = true;
       
       expect(checkWin(board)).toBe(false);
     });
@@ -175,6 +185,46 @@ describe('gameUtils', () => {
       
       const result = autoRevealSafeCells(board);
       expect(result.hitMine).toBe(true);
+    });
+
+    it('should recursively reveal all connected cells with zero neighboring mines', () => {
+      // Create a 5x5 board with a cluster of safe cells
+      board = createBoard({ rows: 5, cols: 5, mines: 0 });
+      
+      // Place mines in a pattern that creates a cluster of safe cells
+      board[0][0].isMine = true;
+      board[4][4].isMine = true;
+      
+      // Update neighbor counts
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
+          if (!board[row][col].isMine) {
+            board[row][col].neighborMines = getNeighbors(board, row, col)
+              .filter(cell => cell.isMine).length;
+          }
+        }
+      }
+
+      // Reveal a cell in the middle (should have zero neighbors)
+      board[2][2].isRevealed = true;
+      
+      const result = autoRevealSafeCells(board);
+      expect(result.hitMine).toBe(false);
+      
+      // Verify that all safe cells with zero neighbors and their adjacent cells are revealed
+      // Check a few key positions that should be revealed
+      expect(board[1][1].isRevealed).toBe(true);
+      expect(board[1][2].isRevealed).toBe(true);
+      expect(board[1][3].isRevealed).toBe(true);
+      expect(board[2][1].isRevealed).toBe(true);
+      expect(board[2][3].isRevealed).toBe(true);
+      expect(board[3][1].isRevealed).toBe(true);
+      expect(board[3][2].isRevealed).toBe(true);
+      expect(board[3][3].isRevealed).toBe(true);
+      
+      // Verify that cells near mines are not revealed
+      expect(board[0][0].isRevealed).toBe(false);
+      expect(board[4][4].isRevealed).toBe(false);
     });
   });
 }); 

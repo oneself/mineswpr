@@ -79,14 +79,23 @@ const hasCorrectFlagCount = (cell: Cell, board: Cell[][]): boolean => {
 const findSafeCellsToReveal = (board: Cell[][]): Cell[] => {
   const safeCells: Cell[] = [];
   
-  // First pass: Find revealed numbers with all mines flagged
+  // Find revealed cells that should trigger auto-reveal
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[0].length; col++) {
       const cell = board[row][col];
       
-      if (cell.isRevealed && !cell.isMine && cell.neighborMines > 0) {
-        if (hasCorrectFlagCount(cell, board)) {
-          // Add unrevealed, unflagged neighbors to safe cells
+      if (cell.isRevealed && !cell.isMine) {
+        // Case 1: Cell has no neighboring mines - all neighbors are safe
+        if (cell.neighborMines === 0) {
+          const neighbors = getNeighbors(board, row, col);
+          neighbors.forEach(neighbor => {
+            if (!neighbor.isRevealed && !neighbor.isFlagged && !safeCells.includes(neighbor)) {
+              safeCells.push(neighbor);
+            }
+          });
+        }
+        // Case 2: Cell has correct number of flags around it
+        else if (cell.neighborMines > 0 && hasCorrectFlagCount(cell, board)) {
           const neighbors = getNeighbors(board, row, col);
           neighbors.forEach(neighbor => {
             if (!neighbor.isRevealed && !neighbor.isFlagged && !safeCells.includes(neighbor)) {
@@ -140,8 +149,10 @@ export const revealCell = (board: Cell[][], row: number, col: number): boolean =
 export const autoRevealSafeCells = (board: Cell[][]): { hitMine: boolean } => {
   loggers.utils('Starting auto-reveal of safe cells');
   let safeCells = findSafeCellsToReveal(board);
+  let revealedAny = false;
   
-  while (safeCells.length > 0) {
+  do {
+    revealedAny = false;
     for (const cell of safeCells) {
       if (!cell.isFlagged && !cell.isRevealed) {
         if (cell.isMine) {
@@ -149,11 +160,15 @@ export const autoRevealSafeCells = (board: Cell[][]): { hitMine: boolean } => {
           return { hitMine: true };
         }
         cell.isRevealed = true;
+        revealedAny = true;
         loggers.utils('Auto-revealed safe cell at [%d,%d]', cell.row, cell.col);
       }
     }
-    safeCells = findSafeCellsToReveal(board);
-  }
+    // Look for more cells to reveal after this round
+    if (revealedAny) {
+      safeCells = findSafeCellsToReveal(board);
+    }
+  } while (revealedAny && safeCells.length > 0);
   
   loggers.utils('Auto-reveal complete, no mines hit');
   return { hitMine: false };
@@ -163,13 +178,14 @@ export const checkWin = (board: Cell[][]): boolean => {
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[0].length; col++) {
       const cell = board[row][col];
-      if (!cell.isMine && !cell.isRevealed) {
-        loggers.utils('Game not won: unrevealed safe cell at [%d,%d]', row, col);
+      // Check if all mines are correctly flagged and no safe cells are flagged
+      if ((cell.isMine && !cell.isFlagged) || (!cell.isMine && cell.isFlagged)) {
+        loggers.utils('Game not won: incorrect flag at [%d,%d]', row, col);
         return false;
       }
     }
   }
   
-  loggers.utils('Game won! All safe cells revealed');
+  loggers.utils('Game won! All mines correctly flagged');
   return true;
 }; 

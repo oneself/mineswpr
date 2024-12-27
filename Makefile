@@ -74,4 +74,4 @@ test-coverage:
 # Clean build and dependencies
 clean:
 	@echo "${YELLOW}Cleaning build and dependency directories...${NC}"
-	rm -rf build node_modules coverage 
+	rm -rf build node_modules coverage

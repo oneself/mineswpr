@@ -145,7 +145,7 @@ export const Minesweeper: React.FC<MinesweeperProps> = ({
         }
       }
 
-      // Check if the game is won
+      // Check if the game is won after flagging
       const won = checkWin(newBoard);
       if (won) {
         loggers.board('Game won after flagging!');
